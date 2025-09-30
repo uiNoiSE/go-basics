@@ -1,3 +1,3 @@
-module demo/app-1
+module go-basics/BMI-calculator
 
 go 1.25.1
