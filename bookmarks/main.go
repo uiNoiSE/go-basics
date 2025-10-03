@@ -15,9 +15,9 @@ Menu:
 		case 1:
 			showBookmarksList(bookmarks)
 		case 2:
-			bookmarks = addBookmark(bookmarks)
+			addBookmark(bookmarks)
 		case 3:
-			bookmarks = deleteBookmark(bookmarks)
+			deleteBookmark(bookmarks)
 		default:
 			break Menu
 		}
@@ -50,17 +50,16 @@ func showBookmarksList(bookmarks bookmarksMap) {
 	}
 }
 
-func addBookmark(bookmarks bookmarksMap) bookmarksMap {
+func addBookmark(bookmarks bookmarksMap) {
 	var bookmarkName, bookmarkAdress string
 	fmt.Print("Введите имя закладки: ")
 	fmt.Scan(&bookmarkName)
 	fmt.Print("Введите адрес закладки: ")
 	fmt.Scan(&bookmarkAdress)
 	bookmarks[bookmarkName] = bookmarkAdress
-	return bookmarks
 }
 
-func deleteBookmark(bookmarks bookmarksMap) bookmarksMap {
+func deleteBookmark(bookmarks bookmarksMap) {
 	var bookmarkName string
 	fmt.Println("Введите имя закладки которую хотите удалить")
 	fmt.Scanln(&bookmarkName)
@@ -72,5 +71,4 @@ func deleteBookmark(bookmarks bookmarksMap) bookmarksMap {
 	} else {
 		fmt.Printf("Нет такой закладки: %s", bookmarkName)
 	}
-	return bookmarks
 }
