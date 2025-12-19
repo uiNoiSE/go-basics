@@ -29,23 +29,34 @@ func promptData(prompt string) string {
 	fmt.Print(prompt, ": ")
 
 	var res string
-	fmt.Scan(&res)
+	fmt.Scanln(&res)
 
 	return res
 }
 
 func newAccount(login, password, urlString string) (*account, error) {
+
+	if login == "" {
+		return nil, errors.New("INVALID_LOGIN")
+	}
+
 	_, err := url.ParseRequestURI(urlString)
 	if err != nil {
 		fmt.Println("Неверный формат url")
 		return nil, errors.New("INVALID_URL")
 	}
 
-	return &account{
+	newAcc := &account{
 		login:    login,
 		password: password,
 		url:      urlString,
-	}, nil
+	}
+
+	if password == "" {
+		newAcc.generatePassword(12)
+	}
+
+	return newAcc, nil
 }
 
 func (acc *account) outputPassword() {
@@ -59,9 +70,9 @@ func main() {
 
 	myAccount, err := newAccount(login, password, url)
 	if err != nil {
+		fmt.Println("Неверный логин или пароль")
 		return
 	}
 
-	myAccount.generatePassword(12)
 	myAccount.outputPassword()
 }
